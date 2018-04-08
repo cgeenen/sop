@@ -7,10 +7,10 @@ pipeline {
     }
  
     stages {
-        stage('install and sonar parallel') {
+        stage('Test and SonarQube parallel') {
             steps {
                 parallel(
-                        install: {
+                        test: {
                             sh "mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml"
                         },
                         sonar: {
@@ -25,7 +25,7 @@ pipeline {
                 }
             }
         }
-        stage ('deploy'){
+        stage ('Deploy to artifactory'){
             steps{
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
                     sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
