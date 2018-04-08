@@ -27,11 +27,16 @@ pipeline {
 	}
 	    
 	stage('get config file') {
-	    	sh "wget https://raw.githubusercontent.com/Blazemeter/taurus/master/examples/jmeter/stepping.yml"
+		steps{
+		sh "wget https://raw.githubusercontent.com/Blazemeter/taurus/master/examples/jmeter/stepping.yml"
+		}
+	    	
 	}
 
 	stage("run test") {
+		steps{
 		bzt "stepping.yml"
+		}
 	}
 
 	stage ('Deploy to artifactory'){
