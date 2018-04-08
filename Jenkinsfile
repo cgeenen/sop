@@ -25,19 +25,6 @@ pipeline {
 		}
 	    }
 	}
-	    
-	stage('get config file') {
-		steps{
-		sh "wget https://raw.githubusercontent.com/Blazemeter/taurus/master/examples/jmeter/stepping.yml"
-		}
-	    	
-	}
-
-	stage("run test") {
-		steps{
-		bzt "stepping.yml"
-		}
-	}
 
 	stage ('Deploy to artifactory'){
 	    steps{
